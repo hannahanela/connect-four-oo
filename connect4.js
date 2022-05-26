@@ -1,3 +1,55 @@
+"use strict";
+
+/** */
+
+class Game {
+  constructor(height=6, width=7, numPlayers=2) {
+    this.board = [];
+    this.makeBoard();
+    this.htmlBoard = document.createElement('div') // if created here, will need to setAttribute within makeHtmlBoard()
+    this.makeHtmlBoard();
+    this.height = height;
+    this.width = width;
+    this.numPlayers = numPlayers;
+  }
+
+  makeBoard() {
+    for (let y = 0; y < this.height; y++) {
+      this.board.push(Array.from({ length: this.width }));
+    }
+  }
+
+  makeHtmlBoard() {
+    this.htmlBoard = document.getElementById('board');
+  
+    // make column tops (clickable area for adding a piece to that column)
+    const top = document.createElement('tr');
+    top.setAttribute('id', 'column-top');
+    top.addEventListener('click', handleClick);
+  
+    for (let x = 0; x < this.width; x++) {
+      const headCell = document.createElement('td');
+      headCell.setAttribute('id', x);
+      top.append(headCell);
+    }
+  
+    this.htmlBoard.append(top);
+  
+    // make main part of htmlBoard
+    for (let y = 0; y < this.height; y++) {
+      const row = document.createElement('tr');
+  
+      for (let x = 0; x < this.width; x++) {
+        const cell = document.createElement('td');
+        cell.setAttribute('id', `${y}-${x}`);
+        row.append(cell);
+      }
+  
+      this.htmlBoard.append(row);
+    }
+  }
+}
+
 /** Connect Four
  *
  * Player 1 and 2 alternate turns. On each turn, a piece is dropped down a
@@ -5,8 +57,8 @@
  * board fills (tie)
  */
 
-const WIDTH = 7;
-const HEIGHT = 6;
+const this.width = 7;
+const this.height = 6;
 
 let currPlayer = 1; // active player: 1 or 2
 let board = []; // array of rows, each row is array of cells  (board[y][x])
@@ -15,48 +67,48 @@ let board = []; // array of rows, each row is array of cells  (board[y][x])
  *   board = array of rows, each row is array of cells  (board[y][x])
  */
 
-function makeBoard() {
-  for (let y = 0; y < HEIGHT; y++) {
-    board.push(Array.from({ length: WIDTH }));
-  }
-}
+// function makeBoard() {
+//   for (let y = 0; y < this.height; y++) {
+//     board.push(Array.from({ length: this.width }));
+//   }
+// }
 
 /** makeHtmlBoard: make HTML table and row of column tops. */
 
-function makeHtmlBoard() {
-  const board = document.getElementById('board');
+// function makeHtmlBoard() {
+//   const board = document.getElementById('board');
 
-  // make column tops (clickable area for adding a piece to that column)
-  const top = document.createElement('tr');
-  top.setAttribute('id', 'column-top');
-  top.addEventListener('click', handleClick);
+//   // make column tops (clickable area for adding a piece to that column)
+//   const top = document.createElement('tr');
+//   top.setAttribute('id', 'column-top');
+//   top.addEventListener('click', handleClick);
 
-  for (let x = 0; x < WIDTH; x++) {
-    const headCell = document.createElement('td');
-    headCell.setAttribute('id', x);
-    top.append(headCell);
-  }
+//   for (let x = 0; x < this.width; x++) {
+//     const headCell = document.createElement('td');
+//     headCell.setAttribute('id', x);
+//     top.append(headCell);
+//   }
 
-  board.append(top);
+//   board.append(top);
 
-  // make main part of board
-  for (let y = 0; y < HEIGHT; y++) {
-    const row = document.createElement('tr');
+//   // make main part of board
+//   for (let y = 0; y < this.height; y++) {
+//     const row = document.createElement('tr');
 
-    for (let x = 0; x < WIDTH; x++) {
-      const cell = document.createElement('td');
-      cell.setAttribute('id', `${y}-${x}`);
-      row.append(cell);
-    }
+//     for (let x = 0; x < this.width; x++) {
+//       const cell = document.createElement('td');
+//       cell.setAttribute('id', `${y}-${x}`);
+//       row.append(cell);
+//     }
 
-    board.append(row);
-  }
-}
+//     board.append(row);
+//   }
+// }
 
 /** findSpotForCol: given column x, return top empty y (null if filled) */
 
 function findSpotForCol(x) {
-  for (let y = HEIGHT - 1; y >= 0; y--) {
+  for (let y = this.height - 1; y >= 0; y--) {
     if (!board[y][x]) {
       return y;
     }
@@ -123,15 +175,15 @@ function checkForWin() {
     return cells.every(
       ([y, x]) =>
         y >= 0 &&
-        y < HEIGHT &&
+        y < this.height &&
         x >= 0 &&
-        x < WIDTH &&
+        x < this.width &&
         board[y][x] === currPlayer
     );
   }
 
-  for (let y = 0; y < HEIGHT; y++) {
-    for (let x = 0; x < WIDTH; x++) {
+  for (let y = 0; y < this.height; y++) {
+    for (let x = 0; x < this.width; x++) {
       // get "check list" of 4 cells (starting here) for each of the different
       // ways to win
       const horiz = [[y, x], [y, x + 1], [y, x + 2], [y, x + 3]];
