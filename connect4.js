@@ -184,7 +184,7 @@ class Game {
 
 }
 
-let g = new Game(6, 7);
+new Game(6, 7);
 
 
 /** Connect Four
