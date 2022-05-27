@@ -1,21 +1,23 @@
 "use strict";
 
-/** */
+/** Class for a game of connect four, with methods that generate an HTML board, JS matrix to track moves, and checks for winning player*/
 
 class Game {
-  constructor(height, width, numPlayers) {
+  constructor(height, width) {
 
     this.height = height;
     this.width = width;
-    this.numPlayers = numPlayers;
     this.currPlayer = 1;
 
     this.board = [];
     this.makeBoard();
-    //this.htmlBoard = document.createElement('div') // if created here, will need to setAttribute within makeHtmlBoard()
     this.makeHtmlBoard();
     
   }
+
+  /** makeBoard: create in-JS board structure:
+ *   board = array of rows, each row is array of cells  (board[y][x])
+ */
 
   makeBoard() {
     for (let y = 0; y < this.height; y++) {
@@ -23,8 +25,10 @@ class Game {
     }
   }
 
+  /** makeHtmlBoard: make HTML table and row of column tops. */
+
   makeHtmlBoard() {
-    this.htmlBoard = document.getElementById('board');
+    htmlBoard = document.getElementById('board');
   
     // make column tops (clickable area for adding a piece to that column)
     const top = document.createElement('tr');
@@ -37,7 +41,7 @@ class Game {
       top.append(headCell);
     }
   
-    this.htmlBoard.append(top);
+   htmlBoard.append(top);
   
     // make main part of htmlBoard
     for (let y = 0; y < this.height; y++) {
@@ -49,7 +53,7 @@ class Game {
         row.append(cell);
       }
   
-      this.htmlBoard.append(row);
+      htmlBoard.append(row);
     }
   }
 
@@ -141,6 +145,7 @@ class Game {
           this.board[y][x] === this.currPlayer
       );
     }
+    // naming convention to indicate bound function: _winBound
     const _winThis = _win.bind(this)
     for (let y = 0; y < this.height; y++) {
       for (let x = 0; x < this.width; x++) {
@@ -179,7 +184,7 @@ class Game {
 
 }
 
-new Game(6, 7);
+let g = new Game(6, 7);
 
 
 /** Connect Four
